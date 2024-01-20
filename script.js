@@ -21,7 +21,7 @@ function searchHandler(e) {
 	 // Call the search function and get results
 	 const results = search(searchText);
  
-	 // Now, let's make those suggestions show up
+	 // Make the suggestions show up
 	 showSuggestions(results, searchText);
 }
 
@@ -38,23 +38,28 @@ function showSuggestions(results, inputVal) {
 	 });
 }
 
-function useSuggestion(e) {
-	// TODO
-}
-
 
 function highlightSuggestion(e) {
     if (e.target.tagName === 'LI') {
-        e.target.style.backgroundColor = '#ffebcd'; // Light goldenrod yellow, because why not?
+        e.target.style.backgroundColor = '#ffebcd'; 
     }
 }
 
+function useSuggestion(e) {
+    if (e.target.tagName === 'LI') {
+        input.value = e.target.textContent; // Fill the input field with the clicked suggestion
+		suggestions.innerHTML = '';
+    }
+}
+
+
+suggestions.addEventListener('click', useSuggestion);
 
 input.addEventListener('keyup', searchHandler);
 suggestions.addEventListener('click', useSuggestion);
 suggestions.addEventListener('mouseover', highlightSuggestion);
 suggestions.addEventListener('mouseout', (e) => {
     if (e.target.tagName === 'LI') {
-        e.target.style.backgroundColor = ''; // Back to normal when you move away.
+        e.target.style.backgroundColor = ''; 
     }
 });
